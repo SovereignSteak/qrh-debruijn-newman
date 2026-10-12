@@ -8,8 +8,11 @@ repository-code: "https://github.com/DrMurphyIsIn/qrh-debruijn-newman"
 license: Apache-2.0
 version: v1.1.0
 date-released: 2026-10-12
-doi: 10.5281/zenodo.23269135
+doi: 10.5281/zenodo.23324360
 identifiers:
+  - type: doi
+    value: 10.5281/zenodo.23324360
+    description: "Zenodo archive of release v1.1.0"
   - type: doi
     value: 10.5281/zenodo.23269135
     description: "Zenodo archive of release v1.0.0"

@@ -20,7 +20,7 @@ Everything the arXiv form asks for, ready to paste. The source package is `paper
 - **MSC classes:** 11M26 (primary); 03B35, 11Y35 (secondary)
 - **ACM classes:** F.4.1
 - **Comments:** 18 pages. Lean 4 sources, verification scripts, audit records and Comparator transcripts at
-  https://github.com/DrMurphyIsIn/qrh-debruijn-newman (v1.1.0), archived at Zenodo, doi:10.5281/zenodo.23269135
+  https://github.com/DrMurphyIsIn/qrh-debruijn-newman (v1.1.0), archived at Zenodo, doi:10.5281/zenodo.23324360
   (concept doi:10.5281/zenodo.23269134). The zero-free half-plane Re s > 7/8 is OpenAI's theorem (openai/math,
   commit adc7f124, Apache-2.0); this paper composes it with de Bruijn's theorem and verifies the composition.
   Not a proof of the Riemann Hypothesis.

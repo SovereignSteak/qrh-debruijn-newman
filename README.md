@@ -132,7 +132,7 @@ honestly. One number from the paper is worth keeping in mind: a zero-free half-p
 
 ## The paper
 
-`paper/paper.pdf`, CC-BY-4.0; archived with this repository at Zenodo, DOI [10.5281/zenodo.23269135](https://doi.org/10.5281/zenodo.23269135) for v1.0.0 and [10.5281/zenodo.23269134](https://doi.org/10.5281/zenodo.23269134) for all versions. It states the two theorems as formalized, walks through the
+`paper/paper.pdf`, CC-BY-4.0; archived with this repository at Zenodo, DOI [10.5281/zenodo.23324360](https://doi.org/10.5281/zenodo.23324360) for v1.1.0, [10.5281/zenodo.23269135](https://doi.org/10.5281/zenodo.23269135) for v1.0.0, and [10.5281/zenodo.23269134](https://doi.org/10.5281/zenodo.23269134) for all versions. It states the two theorems as formalized, walks through the
 composition, documents the cross-pin seam and the single-pin port, lays out the verification
 chain with a trust table, and says plainly what is and is not established.
 
