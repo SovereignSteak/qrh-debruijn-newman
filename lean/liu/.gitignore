@@ -1,0 +1,3 @@
+# materialized workspace (openai/math + Liu, fetched at build time); never committed
+work/
+out/

@@ -1,0 +1,48 @@
+created = "2026-10-11"
+depends_on = ["RH_zeta_zero_free_liu", "RH_dbn_real_zeros_of_zeta_halfplane"]
+kind = "milestone"
+name = "RH.dbn_real_zeros_of_liu_unconditional"
+statement_module = "Statements.RH_dbn_real_zeros_of_liu_unconditional"
+status = "proved"
+title = "Lambda <= 2(B_new - 1/2)^2 = (1867057 - 10888 sqrt 921)/5464818 = 0.2811856... for the de Bruijn-Newman constant, UNCONDITIONAL in one Lean environment at OpenAI's pin: Liu's half-plane (RH_zeta_zero_free_liu) composed with de Bruijn's heat-flow theorem (RH_dbn_real_zeros_of_zeta_halfplane, the dbn port). Every zero of H_t is real for t >= 2(B_new - 1/2)^2, below 9/32 = 0.28125 (RH_dbn_real_zeros_nine_thirtyseconds). This is the LIMIT of the cubic-theta method with proved inputs (ledger Addendum 2; SEXTIC_BOTTLENECK_2026-10-11.md section 7). Weaker than the numerical 0.22 (Polymath15) and 0.2 (Platt-Trudgian). RH is Lambda = 0 and is NOT proved. conjecture1_proved = False"
+updated = "2026-10-11"
+
+[author]
+date = "2026-10-11"
+identity = "dr.murphy.is.in@arda-dao.com"
+session = "session_01T6sQ9By6CuBoffW7BYPHJT"
+
+[comparator]
+artifact_sha256 = "1dcf6f08e6b1111f5e0dad8266a6934b93718f3fc7bbba6d7611c680381f9b0c"
+date = "2026-10-11"
+head_check = "matched"
+job_id = "114594294528"
+job_url = "https://github.com/DrMurphyIsIn/Arda/actions/runs/38179118143/job/114594294528"
+judged_head_sha = "97c87bb5fc8616fc8bea3962484440b95aa02215"
+kernel_mode = "nanoda"
+log_check = "verified"
+run_id = "38179118143"
+run_url = "https://github.com/DrMurphyIsIn/Arda/actions/runs/38179118143"
+theorem = "dbn_real_zeros_of_liu_unconditional"
+
+[grant]
+artifact_sha256 = "1dcf6f08e6b1111f5e0dad8266a6934b93718f3fc7bbba6d7611c680381f9b0c"
+date = "2026-10-11"
+gate_version = "2026-09-23.1"
+identity = "dr.murphy.is.in@arda-dao.com"
+session = "session_01T6sQ9By6CuBoffW7BYPHJT"
+statement_sha256 = "edfd4fe45278da31864d1dd438f6e0dda3a8ba12a78e6f88aa882f909c559923"
+
+[proof]
+artifact = "../../examples/liu_dbn_bridge/lean/ArdaDBNLiu.lean"
+artifact_kind = "lean_module"
+closure_clean = true
+via = "direct"
+
+[readback]
+auditor = "petermurphy@mountainviewdirectcare.com"
+auditor_identity = "petermurphy@mountainviewdirectcare.com"
+auditor_session = "operator-2026-10-11"
+date = "2026-10-11"
+independence = "independent"
+text = "Read back by the operator from Statements/RH_dbn_real_zeros_of_liu_unconditional.lean (rendering drafted by the authoring session, checked by me). For every real t at least 2((1507 - 2 sqrt 921)/1653 - 1/2)^2 = 0.2811856..., and every complex z with DBN.H t z = 0, the imaginary part of z is 0: every zero of the heat-flowed xi function H_t is real for t at or above that threshold, i.e. the de Bruijn-Newman constant satisfies Lambda <= 0.2811856. Unconditional; not RH, which is Lambda = 0."

@@ -1,0 +1,118 @@
+# Cold reproduction of v1.1.0's added theorem, Lambda <= 0.2811857: clones Arda at tag qrh-liu-v1.1.0, checks
+# that this repository's vendored files are byte-identical to it, then runs the island's liu_materialize.sh
+# (openai/math and Baiying Liu's Lean at pinned commits, every file verified by hash), builds the overlay, the
+# single-pin dbn port, the bridge and the challenges, prints the axiom guard, and runs Comparator with nanoda on:
+# the positive challenge must be accepted and the tampered control (Phi with e^{8u}) must be rejected.
+# Adapted from Arda's .github/workflows/liu-dbn-bridge.yml at the tag; no cache (cold, several CPU-hours).
+# Licence basis for Liu's code: owner decision 2026-10-11, no grant from the author on file; nothing of it is
+# stored in this repository.
+name: verify-liu
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ["lean/liu/**", "lean/judge_liu/**", "scripts/materialize_liu.sh", ".github/workflows/verify-liu.yml"]
+jobs:
+  build-and-judge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    defaults:
+      run:
+        shell: bash
+    env:
+      WS: work/arda/telperion/examples/liu_dbn_bridge/work/oai
+    steps:
+      - uses: actions/checkout@v4
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /usr/local/.ghcup /opt/hostedtoolcache/CodeQL || true
+          sudo docker image prune --all --force > /dev/null 2>&1 || true
+          df -h / | tail -1
+      - name: Install elan
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Materialize (Arda at the tag, vendored copies checked; openai/math + Liu at pins, hashes checked)
+        run: scripts/materialize_liu.sh
+      - name: Resolve and patch OpenAI's dependencies, fetch Mathlib oleans
+        run: cd "$WS" && lake update && lake exe cache get
+      - name: Build
+        run: cd "$WS" && lake build ArdaLiuBridge ArdaDBNLiu AxiomGuardLiuBridge ArdaDBNLiuChallenge ArdaDBNLiuChallengeTampered
+      - name: Axiom guard
+        run: |
+          cd "$WS"
+          lake env lean AxiomGuardLiuBridge.lean | tee axioms.out
+          ! grep -q sorryAx axioms.out
+          grep -q "'dbn_real_zeros_of_liu_unconditional' depends on axioms: \[propext, Classical.choice, Quot.sound\]" axioms.out
+          grep -q "'dbn_real_zeros_ge_2811857' depends on axioms: \[propext, Classical.choice, Quot.sound\]" axioms.out
+      - name: Install landrun shim (preserves `--`; same shim as missions-comparator.yml)
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          cat > "$HOME/.local/bin/landrun" <<'SHIM'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          args=("$@"); i=0; n=${#args[@]}
+          while (( i < n )); do
+            a="${args[$i]}"
+            case "$a" in
+              --ro|--rw|--rwx|--rox|--env|--log-level)
+                v="${args[$((i+1))]:-}"
+                [[ "$a" == "--env" && "$v" == *"="* ]] && export "$v"
+                i=$((i+2)) ;;
+              --env=*) export "${a#--env=}"; i=$((i+1)) ;;
+              --*=*) i=$((i+1)) ;;
+              -*) i=$((i+1)) ;;
+              *) break ;;
+            esac
+          done
+          exec "${args[@]:$i}"
+          SHIM
+          chmod +x "$HOME/.local/bin/landrun"
+
+      - name: Build Comparator + lean4export (v4.34.0 tag, toolchain v4.34.1)
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --branch v4.34.0 https://github.com/leanprover/comparator.git "$HOME/comparator"
+          cd "$HOME/comparator"
+          echo "leanprover/lean4:v4.34.1" > lean-toolchain
+          lake build lean4export comparator
+          COMPARATOR_BIN="$(find "$HOME/comparator/.lake" -type f -name comparator -path '*/bin/*' | head -1)"
+          L4X_BIN="$(find "$HOME/comparator/.lake" -type f -name lean4export -path '*/bin/*' | head -1)"
+          test -x "$COMPARATOR_BIN" && test -x "$L4X_BIN"
+          echo "$(dirname "$COMPARATOR_BIN")" >> "$GITHUB_PATH"
+          echo "COMPARATOR_LEAN4EXPORT=$L4X_BIN" >> "$GITHUB_ENV"
+
+      - name: Build nanoda (2nd kernel)
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/ammkrn/nanoda_lib.git "$HOME/nanoda"
+          cd "$HOME/nanoda"
+          cargo build --release
+          test -x "$HOME/nanoda/target/release/nanoda_bin"
+          echo "COMPARATOR_NANODA=$HOME/nanoda/target/release/nanoda_bin" >> "$GITHUB_ENV"
+
+      - name: "Comparator (nanoda on): positive challenge accepted, negative control REJECTED"
+        working-directory: ${{ env.WS }}
+        env:
+          COMPARATOR_LANDRUN: /home/runner/.local/bin/landrun
+          MALLOC_ARENA_MAX: "2"
+        run: |
+          set -uo pipefail
+          ulimit -s unlimited 2>/dev/null || ulimit -s 4194304 2>/dev/null || true
+          fail=0
+          echo "==================== dbn_real_zeros_of_liu_unconditional (must be ACCEPTED) ===================="
+          if lake env comparator dbn_real_zeros_of_liu_unconditional.comparator.json 2>&1 | tee cmp_pos.out && grep -q "Your solution is okay!" cmp_pos.out; then
+            echo "ACCEPTED"
+          else
+            echo "::error::Comparator did not accept dbn_real_zeros_of_liu_unconditional"; fail=1
+          fi
+          echo "==================== tampered (must be REJECTED) ===================="
+          if lake env comparator liu_tampered.comparator.json > cmp_tampered.out 2>&1 && grep -q "Your solution is okay!" cmp_tampered.out; then
+            echo "::error::Comparator ACCEPTED the tampered negative control; the challenge does not pin DBN.Phi"; fail=1
+          elif grep -q "does not match" cmp_tampered.out; then
+            echo "REJECTED as required: $(grep -m1 'does not match' cmp_tampered.out)"
+          else
+            echo "::error::tampered control neither accepted nor rejected for the expected reason"; cat cmp_tampered.out; fail=1
+          fi
+          exit $fail
+

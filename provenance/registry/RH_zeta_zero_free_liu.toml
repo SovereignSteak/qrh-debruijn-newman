@@ -1,0 +1,48 @@
+created = "2026-10-11"
+depends_on = ["RH_zeta_zero_free_seven_eighths"]
+kind = "lemma"
+name = "RH.zeta_zero_free_liu"
+statement_module = "Statements.RH_zeta_zero_free_liu"
+status = "proved"
+title = "Liu's zero-free half-plane for zeta (arXiv:2610.12234, 8 Oct 2026): riemannZeta s != 0 for Re s > B_new = (1507 - 2 sqrt 921)/1653 = 0.874957069..., the proved-input optimum of OpenAI's cubic-theta architecture (thread-C ledger Addendum 2: the same sqrt 921 arises from the binding witness-count bin). Liu's Lean (repo liubaiying101/Slightly-improved-zero-free-half-planes-for-the-quasi-Riemann-hypothesis @ 7d10420, Lean v4.34.1, Mathlib d13f23b, vendored openai/math closure @ adc7f124) is MATERIALIZED at pin, never vendored; the artifact re-exports CombinedPaper.algebraic_zeta_nonzero with the unused s != 1 hypothesis removed (Mathlib riemannZeta_one_ne_zero). Licence: Liu's repo carries no LICENSE; treated as Apache-2.0 by owner decision 2026-10-11, no grant from the author on file (LICENSE requested, issue #1 on his repo). Replayed independently by two sessions (Lean + nanoda). Not RH: 0.874957 < 1 is a strip, not the line. conjecture1_proved = False"
+updated = "2026-10-11"
+
+[author]
+date = "2026-10-11"
+identity = "dr.murphy.is.in@arda-dao.com"
+session = "session_01T6sQ9By6CuBoffW7BYPHJT"
+
+[comparator]
+artifact_sha256 = "fa2fed1454b88c21248f6ea8c665c1ee1ffe49c48d3d0bf7e7a18ee028c97abc"
+date = "2026-10-11"
+head_check = "matched"
+job_id = "114594294528"
+job_url = "https://github.com/DrMurphyIsIn/Arda/actions/runs/38179118143/job/114594294528"
+judged_head_sha = "97c87bb5fc8616fc8bea3962484440b95aa02215"
+kernel_mode = "nanoda"
+log_check = "verified"
+run_id = "38179118143"
+run_url = "https://github.com/DrMurphyIsIn/Arda/actions/runs/38179118143"
+theorem = "liu_zeta_zero_free"
+
+[grant]
+artifact_sha256 = "fa2fed1454b88c21248f6ea8c665c1ee1ffe49c48d3d0bf7e7a18ee028c97abc"
+date = "2026-10-11"
+gate_version = "2026-09-23.1"
+identity = "dr.murphy.is.in@arda-dao.com"
+session = "session_01T6sQ9By6CuBoffW7BYPHJT"
+statement_sha256 = "4871719234b501a483444c3fd6f60ed9e767e38f12824dc6928e94d7c3651ff8"
+
+[proof]
+artifact = "../../examples/liu_dbn_bridge/lean/ArdaLiuBridge.lean"
+artifact_kind = "lean_module"
+closure_clean = true
+via = "direct"
+
+[readback]
+auditor = "petermurphy@mountainviewdirectcare.com"
+auditor_identity = "petermurphy@mountainviewdirectcare.com"
+auditor_session = "operator-2026-10-11"
+date = "2026-10-11"
+independence = "independent"
+text = "Read back by the operator from Statements/RH_zeta_zero_free_liu.lean (rendering drafted by the authoring session, checked by me). For every complex s whose real part exceeds (1507 - 2 sqrt 921)/1653 = 0.874957..., the Riemann zeta function (Mathlib's riemannZeta) does not vanish at s. No hypothesis excludes s = 1. This is Liu's zero-free half-plane (arXiv:2610.12234), re-exported from his Lean at a pinned commit; licence basis is my owner decision of 2026-10-11 with no grant from the author on file."

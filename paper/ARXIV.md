@@ -3,7 +3,7 @@
 Everything the arXiv form asks for, ready to paste. The source package is `paper/arxiv.tar.gz`
 (one file, `paper.tex`, with `\pdfoutput=1` on line 1 and an inline bibliography; no figures, no
 .bbl). It was test-compiled from a clean directory with two passes of pdflatex (TeX Live 2025):
-17 pages, no errors, no undefined references.
+18 pages, no errors, no undefined references.
 
 ## Upload
 
@@ -19,8 +19,8 @@ Everything the arXiv form asks for, ready to paste. The source package is `paper
 - **Cross-list:** cs.LO (Logic in Computer Science)
 - **MSC classes:** 11M26 (primary); 03B35, 11Y35 (secondary)
 - **ACM classes:** F.4.1
-- **Comments:** 17 pages. Lean 4 sources, verification scripts, audit records and Comparator transcripts at
-  https://github.com/DrMurphyIsIn/qrh-debruijn-newman (v1.0.0), archived at Zenodo, doi:10.5281/zenodo.23269135
+- **Comments:** 18 pages. Lean 4 sources, verification scripts, audit records and Comparator transcripts at
+  https://github.com/DrMurphyIsIn/qrh-debruijn-newman (v1.1.0), archived at Zenodo, doi:10.5281/zenodo.23269135
   (concept doi:10.5281/zenodo.23269134). The zero-free half-plane Re s > 7/8 is OpenAI's theorem (openai/math,
   commit adc7f124, Apache-2.0); this paper composes it with de Bruijn's theorem and verifies the composition.
   Not a proof of the Riemann Hypothesis.

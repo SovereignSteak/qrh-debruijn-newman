@@ -1,0 +1,48 @@
+created = "2026-10-11"
+depends_on = ["RH_dbn_real_zeros_of_liu_unconditional"]
+kind = "milestone"
+name = "RH.dbn_real_zeros_ge_2811857"
+statement_module = "Statements.RH_dbn_real_zeros_ge_2811857"
+status = "proved"
+title = "Rational headline: every zero of H_t is real for t >= 2811857/10^7 = 0.2811857 (> 2(B_new - 1/2)^2 = 0.2811856...), i.e. Lambda <= 0.2811857, kernel-checked, from RH_dbn_real_zeros_of_liu_unconditional by monotonicity in t. Replaces 9/32 = 0.28125 as the kernel-checked upper bound on the de Bruijn-Newman constant by 6.4e-5. Not RH (Lambda = 0). conjecture1_proved = False"
+updated = "2026-10-11"
+
+[author]
+date = "2026-10-11"
+identity = "dr.murphy.is.in@arda-dao.com"
+session = "session_01T6sQ9By6CuBoffW7BYPHJT"
+
+[comparator]
+artifact_sha256 = "1dcf6f08e6b1111f5e0dad8266a6934b93718f3fc7bbba6d7611c680381f9b0c"
+date = "2026-10-11"
+head_check = "matched"
+job_id = "114594294528"
+job_url = "https://github.com/DrMurphyIsIn/Arda/actions/runs/38179118143/job/114594294528"
+judged_head_sha = "97c87bb5fc8616fc8bea3962484440b95aa02215"
+kernel_mode = "nanoda"
+log_check = "verified"
+run_id = "38179118143"
+run_url = "https://github.com/DrMurphyIsIn/Arda/actions/runs/38179118143"
+theorem = "dbn_real_zeros_ge_2811857"
+
+[grant]
+artifact_sha256 = "1dcf6f08e6b1111f5e0dad8266a6934b93718f3fc7bbba6d7611c680381f9b0c"
+date = "2026-10-11"
+gate_version = "2026-09-23.1"
+identity = "dr.murphy.is.in@arda-dao.com"
+session = "session_01T6sQ9By6CuBoffW7BYPHJT"
+statement_sha256 = "cb97f854e4797b6e455b345c3f741e1d236106f9796c9d1173be22f3ebf7e539"
+
+[proof]
+artifact = "../../examples/liu_dbn_bridge/lean/ArdaDBNLiu.lean"
+artifact_kind = "lean_module"
+closure_clean = true
+via = "direct"
+
+[readback]
+auditor = "petermurphy@mountainviewdirectcare.com"
+auditor_identity = "petermurphy@mountainviewdirectcare.com"
+auditor_session = "operator-2026-10-11"
+date = "2026-10-11"
+independence = "independent"
+text = "Read back by the operator from Statements/RH_dbn_real_zeros_ge_2811857.lean (rendering drafted by the authoring session, checked by me). For every real t at least 2811857/10000000 = 0.2811857 and every complex z with DBN.H t z = 0, z has imaginary part 0: all zeros of H_t are real from t = 0.2811857 on, the rational headline Lambda <= 0.2811857 for the de Bruijn-Newman constant. Not RH."

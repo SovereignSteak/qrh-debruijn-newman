@@ -1,0 +1,9 @@
+liu_repo=https://github.com/liubaiying101/Slightly-improved-zero-free-half-planes-for-the-quasi-Riemann-hypothesis.git
+liu_commit=7d10420de90efa2f082a06a342fc7accbd57ab37
+liu_paper=arXiv:2610.12234
+liu_toolchain=leanprover/lean4:v4.34.1
+liu_manifest_oai_commit=adc7f1241b42e322a6451854ab7e4b4c146bf78a
+liu_manifest_modules=2925
+liu_lean_modules=219
+# Workspace toolchain, read by missions/judge.py (read_pin) for the Comparator build. Same as OAI_PIN.
+toolchain=leanprover/lean4:v4.34.1

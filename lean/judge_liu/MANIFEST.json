@@ -1,0 +1,63 @@
+{
+  "island": "liu_dbn_bridge",
+  "package": "OAI",
+  "toolchain": "leanprover/lean4:v4.34.1",
+  "comparator_tag": "v4.34.0",
+  "comparator_toolchain": "leanprover/lean4:v4.34.1",
+  "materialized_root": {
+    "recipe": "examples/liu_dbn_bridge",
+    "pin_file": "LIU_PIN",
+    "pin": {
+      "liu_repo": "https://github.com/liubaiying101/Slightly-improved-zero-free-half-planes-for-the-quasi-Riemann-hypothesis.git",
+      "liu_commit": "7d10420de90efa2f082a06a342fc7accbd57ab37",
+      "liu_paper": "arXiv:2610.12234",
+      "liu_toolchain": "leanprover/lean4:v4.34.1",
+      "liu_manifest_oai_commit": "adc7f1241b42e322a6451854ab7e4b4c146bf78a",
+      "liu_manifest_modules": "2925",
+      "liu_lean_modules": "219",
+      "toolchain": "leanprover/lean4:v4.34.1"
+    },
+    "workspace_lakefile": "lakefile.lean",
+    "island_stanza": "lean/lakefile-stanza.lean",
+    "install": "telperion/scripts/judge_materialize.sh telperion/missions/judge/liu_dbn_bridge <materialized workspace>"
+  },
+  "not_consumable": [],
+  "nodes": [
+    {
+      "slug": "RH_dbn_real_zeros_ge_2811857",
+      "campaign": "rh",
+      "theorem": "dbn_real_zeros_ge_2811857",
+      "solution_module": "ArdaDBNLiu",
+      "challenge_module": "MissionChallenges.RH_dbn_real_zeros_ge_2811857",
+      "bridge_theorem": "MissionJudge.RH_dbn_real_zeros_ge_2811857",
+      "config": "RH_dbn_real_zeros_ge_2811857.comparator.json",
+      "nanoda": true,
+      "artifact_sha256": "1dcf6f08e6b1111f5e0dad8266a6934b93718f3fc7bbba6d7611c680381f9b0c",
+      "statement_sha256": "cb97f854e4797b6e455b345c3f741e1d236106f9796c9d1173be22f3ebf7e539"
+    },
+    {
+      "slug": "RH_dbn_real_zeros_of_liu_unconditional",
+      "campaign": "rh",
+      "theorem": "dbn_real_zeros_of_liu_unconditional",
+      "solution_module": "ArdaDBNLiu",
+      "challenge_module": "MissionChallenges.RH_dbn_real_zeros_of_liu_unconditional",
+      "bridge_theorem": "MissionJudge.RH_dbn_real_zeros_of_liu_unconditional",
+      "config": "RH_dbn_real_zeros_of_liu_unconditional.comparator.json",
+      "nanoda": true,
+      "artifact_sha256": "1dcf6f08e6b1111f5e0dad8266a6934b93718f3fc7bbba6d7611c680381f9b0c",
+      "statement_sha256": "edfd4fe45278da31864d1dd438f6e0dda3a8ba12a78e6f88aa882f909c559923"
+    },
+    {
+      "slug": "RH_zeta_zero_free_liu",
+      "campaign": "rh",
+      "theorem": "liu_zeta_zero_free",
+      "solution_module": "ArdaLiuBridge",
+      "challenge_module": "MissionChallenges.RH_zeta_zero_free_liu",
+      "bridge_theorem": "MissionJudge.RH_zeta_zero_free_liu",
+      "config": "RH_zeta_zero_free_liu.comparator.json",
+      "nanoda": true,
+      "artifact_sha256": "fa2fed1454b88c21248f6ea8c665c1ee1ffe49c48d3d0bf7e7a18ee028c97abc",
+      "statement_sha256": "4871719234b501a483444c3fd6f60ed9e767e38f12824dc6928e94d7c3651ff8"
+    }
+  ]
+}

@@ -5,3 +5,11 @@ telperion_examples_dbn_lean=19 modules (DBN*.lean), byte-identical, pre-patch
 telperion_examples_oai_qrh_bridge=lean/, dbn_port/, fidelity/, logs/, OAI_PIN, materialize.sh
 telperion_missions_judge_oai_qrh_bridge=bundle as judged in run 37955041118
 telperion_missions_rh_nodes=four node records + statements
+
+# v1.1.0 (2026-10-12)
+liu_source_tag=qrh-liu-v1.1.0
+liu_source_commit=2b1be6c5023d69aa7c9bc70ee843bdaa1bf383db
+telperion_examples_liu_dbn_bridge=lean/liu/ (our island files, byte-identical, checked by scripts/materialize_liu.sh)
+telperion_missions_judge_liu_dbn_bridge=lean/judge_liu/ (bundle as judged in run 38179118143)
+telperion_missions_rh_liu_nodes=RH_zeta_zero_free_liu, RH_dbn_real_zeros_of_liu_unconditional, RH_dbn_real_zeros_ge_2811857 (records + statements)
+liu_upstream=liubaiying101/Slightly-improved-zero-free-half-planes-for-the-quasi-Riemann-hypothesis@7d10420de90efa2f082a06a342fc7accbd57ab37 (materialized, not redistributed; licence basis: owner decision 2026-10-11, no author grant on file)

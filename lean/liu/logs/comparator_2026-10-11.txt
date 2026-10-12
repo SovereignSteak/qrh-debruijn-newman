@@ -1,0 +1,19 @@
+# Comparator runs, local Mac, NOT sandboxed (landrun pass-through shim ~/e9-tools/bin/landrun), nanoda ON. 2026-10-11.
+# comparator: ~/e9-tools/comparator (toolchain v4.34.1); lean4export from its packages; nanoda ~/e9-tools/nanoda.
+
+## dbn_real_zeros_of_liu_unconditional
+Exporting #[...] from ArdaDBNLiuChallenge
+Exporting #[...] from ArdaDBNLiu
+nanoda kernel accepts the solution
+Lean default kernel accepts the solution
+Your solution is okay!
+      492.04 real       538.90 user        40.12 sys
+          9243705344  maximum resident set size
+EXIT 0
+## liu_tampered
+Exporting #[...] from ArdaDBNLiuChallengeTampered
+Exporting #[...] from ArdaDBNLiu
+uncaught exception: Const does not match between challenge and target 'DBN.Φ'
+      163.23 real       121.44 user        27.95 sys
+          9249521664  maximum resident set size
+EXIT 1

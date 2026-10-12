@@ -1,4 +1,4 @@
-# Λ ≤ 9/32, kernel-checked
+# Λ ≤ 9/32, and now Λ ≤ 0.2811857, kernel-checked
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23269134.svg)](https://doi.org/10.5281/zenodo.23269134)
 
@@ -78,6 +78,45 @@ What remains trusted as code rather than checked: Mathlib's definition of `riema
 pinned OpenAI tree (verified byte-for-byte against the commit, never modified), Lean's kernel,
 and nanoda. That is the same trust the result rests on anyway.
 
+## Version 1.1: Λ ≤ 0.2811857, from Liu's improvement of the half-plane
+
+Three days after OpenAI's release, Baiying Liu posted "Slightly improved zero-free half-planes for the
+quasi-Riemann hypothesis" (arXiv:2610.12234, 8 October 2026). Following OpenAI's own argument and varying
+two of its length parameters, it moves the half-plane from Re s > 7/8 to
+
+    Re s > B = (1507 − 2√921)/1653 = 0.8749570698…,
+
+with a Lean formalization at OpenAI's exact pin. The same converter then gives
+
+> **Every zero of H_t is real for every t ≥ 2(B − ½)² = (1867057 − 10888√921)/5464818 = 0.2811856…**
+> Classically, Λ ≤ 0.2811857.
+
+That is 6.4·10⁻⁵ below 9/32. The gain is small, and it is not going to get much bigger along this route:
+an independent modelling of OpenAI's method by the Arda team (its "thread C" loss ledger, Addendum 2) puts the
+optimum of the whole architecture with proved inputs at σ₀ = 0.87495707, the same number to eight digits, with
+the same √921 arising from the binding constraint (the team's earlier, coarser model had predicted 0.87498). So
+this is the limit of OpenAI's method, formalized by its first improver, and converted.
+
+**What was checked.** In one Lean workspace (openai/math at adc7f124, Liu's Lean at commit 7d10420, the
+single-pin dbn port), `liu_zeta_zero_free` re-exports Liu's `CombinedPaper.algebraic_zeta_nonzero` and
+`dbn_real_zeros_of_liu_unconditional` composes it with de Bruijn's theorem, with the rational headline
+`dbn_real_zeros_ge_2811857`; the axiom guard prints `[propext, Classical.choice, Quot.sound]` for every line.
+Liu's theorem was replayed independently: his upload had to be reconstructed to build (the vendored OpenAI
+closure was missing and the module tree flattened; both repaired by hash-verified copies), then built green
+(12,088 jobs) with standard axioms; his `s ≠ 1` hypothesis turns out to be unused. Comparator with nanoda
+accepts the composed theorem against a challenge that imports only Mathlib and rejects the tampered control,
+both in CI (Arda workflow liu-dbn-bridge) and in the registry judge, which replayed all three registered
+statements (judge run 38179118143; transcript in `logs/`). The three registry nodes were read back by the
+operator himself before they were granted (`provenance/registry/`).
+
+**Provenance and licence.** Nothing of Liu's or OpenAI's code is stored here. `scripts/materialize_liu.sh`
+clones Arda at tag `qrh-liu-v1.1.0`, checks this repository's vendored files (`lean/liu/`, `lean/judge_liu/`,
+the node records) byte for byte against it, and runs the island's materialize script, which fetches openai/math
+and Liu's repository at their pinned commits and verifies every file by hash. Liu's repository carries no
+LICENSE; it is treated as Apache-2.0 by the owner's decision of 11 October 2026, with no grant from the author
+on file, and attribution to Baiying Liu kept. A LICENSE has been requested from him. The theorem that the
+half-plane holds is his, built on OpenAI's.
+
 ## What this does and does not advance
 
 It does not move the frontier on Λ. The bound 9/32 is weaker than 0.22, and 0.22 is weaker than
@@ -112,6 +151,18 @@ lake build ArdaQRHBridge AxiomGuardQRHBridge ArdaDBNUnconditional ArdaDBNChallen
 lake env lean AxiomGuardDBNUnconditional.lean      # [propext, Classical.choice, Quot.sound], no sorryAx
 ```
 
+For v1.1's Λ ≤ 0.2811857 (`.github/workflows/verify-liu.yml` is the exact recipe):
+
+```sh
+scripts/materialize_liu.sh      # Arda at qrh-liu-v1.1.0 (vendored copies checked), openai/math + Liu at pins
+cd work/arda/telperion/examples/liu_dbn_bridge/work/oai
+lake update && lake exe cache get
+lake build ArdaLiuBridge ArdaDBNLiu AxiomGuardLiuBridge ArdaDBNLiuChallenge ArdaDBNLiuChallengeTampered
+lake env lean AxiomGuardLiuBridge.lean                                   # [propext, Classical.choice, Quot.sound]
+lake env comparator dbn_real_zeros_of_liu_unconditional.comparator.json   # must accept
+lake env comparator liu_tampered.comparator.json                         # must REJECT
+```
+
 For the Comparator stage, build [leanprover/comparator](https://github.com/leanprover/comparator)
 at tag v4.34.0 with its `lean-toolchain` set to v4.34.1 (there is no v4.34.1 tag), build
 [nanoda](https://github.com/ammkrn/nanoda_lib), and run `lake env comparator <config>.json` on
@@ -122,6 +173,8 @@ recipe.
 ## Layout
 
 ```
+lean/liu/         v1.1: our liu_dbn_bridge island (bridge, guards, challenges, materialize recipe, Liu file hashes)
+lean/judge_liu/   v1.1: the registry judge bundle for the three Liu nodes
 lean/bridge/      the re-export, the unconditional theorem, guards, challenges, Comparator configs
 lean/dbn/         the nineteen de Bruijn modules, byte-identical to the Arda dbn island
 lean/patches/     the two one-line proof repairs for OpenAI's Mathlib pin

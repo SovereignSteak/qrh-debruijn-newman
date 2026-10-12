@@ -1,0 +1,14 @@
+{
+  "challenge_module": "ArdaDBNLiuChallengeTampered",
+  "solution_module": "ArdaDBNLiu",
+  "theorem_names": [
+    "dbn_real_zeros_of_liu_unconditional"
+  ],
+  "definition_names": [],
+  "permitted_axioms": [
+    "propext",
+    "Quot.sound",
+    "Classical.choice"
+  ],
+  "enable_nanoda": true
+}
