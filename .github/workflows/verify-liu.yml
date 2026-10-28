@@ -45,6 +45,13 @@ jobs:
           ! grep -q sorryAx axioms.out
           grep -q "'dbn_real_zeros_of_liu_unconditional' depends on axioms: \[propext, Classical.choice, Quot.sound\]" axioms.out
           grep -q "'dbn_real_zeros_ge_2811857' depends on axioms: \[propext, Classical.choice, Quot.sound\]" axioms.out
+      - name: Independent scope and Lean kernel replay
+        run: |
+          cd "$WS"
+          lake env lean "$GITHUB_WORKSPACE/.github/lean/Scope.lean" | tee scope.out
+          grep -q 'AUDIT_SCOPE=passed' scope.out
+          ! grep -q sorryAx scope.out
+          lake env leanchecker -v ArdaDBNLiu | tee leanchecker.out
       - name: Install landrun shim (preserves `--`; same shim as missions-comparator.yml)
         run: |
           mkdir -p "$HOME/.local/bin"
