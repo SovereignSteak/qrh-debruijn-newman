@@ -116,3 +116,5 @@ jobs:
           fi
           exit $fail
 
+
+# Independent SovereignSteak replay; proof inputs remain pinned.
